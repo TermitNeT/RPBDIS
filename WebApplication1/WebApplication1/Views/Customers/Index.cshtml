@@ -1,0 +1,93 @@
+﻿@model IndexViewModel
+@using CourseWork.pages
+
+@{
+    ViewData["Title"] = "Заказчики";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Заказчики</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить нового заказчика</a>
+</p>
+@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+{
+<fieldset>
+    Фамилия заказчика: @Html.TextBox("Surname", Model.Surname)
+    Имя заказчика: @Html.TextBox("Name", Model.Name)
+    <input type="submit" value="Найти" />
+</fieldset>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Адрес</th>
+            <th>Телефон</th>
+            <th>Паспортные данные</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passport)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.CustomerId">Редактировать</a> |
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.CustomerId">Детали</a> |
+                    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.CustomerId">Удаление</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+      
+          asp-route-Name="@(Model.FilterViewModel.Name)"
+           asp-route-Surname="@(Model.FilterViewModel.Surname)"
+       asp-route-sort="@ViewBag.CurrentState"
+       class="btn btn-primary">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       
+          asp-route-Name="@(Model.FilterViewModel.Name)"
+           asp-route-Surname="@(Model.FilterViewModel.Surname)"   
+       asp-route-sort="@ViewBag.CurrentState"
+       class="btn btn-primary">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

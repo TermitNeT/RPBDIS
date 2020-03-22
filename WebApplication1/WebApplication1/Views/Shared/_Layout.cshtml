@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-100, initial-scale=2.0" />
+    <title>@ViewData["Title"] - Строительная компания</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-primary text-light te">
+
+            <div class="container-fluid">
+                <a type="button" class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">  <h1>Строительная компания</h1></a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Orders" asp-action="Index"><h3>Заказы</h3></a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Customers" asp-action="Index"><h3>Заказчики</h3></a>
+                <a class="btn btn-primary" asp-area="" asp-controller="TypeOfWorks" asp-action="Index"><h3>Виды работ</h3></a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Materials" asp-action="Index"><h3>Материалы</h3></a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Teams" asp-action="Index"><h3>Бригады</h3></a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Workers" asp-action="Index"><h3>Работники</h3></a>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid" >
+        <main role="main" class="p-2">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+        

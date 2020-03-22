@@ -1,0 +1,135 @@
+﻿@model IndexViewModel
+@using CourseWork.pages
+
+@{
+    ViewData["Title"] = "Работники";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Работники</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить нового работника</a>
+</p>
+
+
+@using (Html.BeginForm("Index", "Workers", FormMethod.Get))
+{
+<fieldset>
+    Фамилия работника: @Html.TextBox("Surname", Model.Surname)
+    Имя работника: @Html.TextBox("Name", Model.Name)
+    Должность: @Html.TextBox("Position", Model.Position)
+    <input type="submit" value="Найти" />
+</fieldset>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Имя
+            </th>
+            <th>
+                Отчество
+            </th>
+            <th>
+                Возраст
+            </th>
+            <th>
+                Пол
+            </th>
+            <th>
+                Адрес
+            </th>
+            <th>
+                Телефон
+            </th>
+            <th>
+                Паспортные данные
+            </th>
+            <th>
+                Должность
+            </th>
+            <th>
+                Бригада
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.workers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passport)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position.PositionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.TeamName)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.WorkerId">Редактировать</a> |
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.WorkerId">Детали</a> |
+                    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.WorkerId">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+          asp-route-Name="@(Model.FilterViewModel.Name)"
+           asp-route-Surname="@(Model.FilterViewModel.Surname)"
+           asp-route-Position="@(Model.FilterViewModel.Position)"
+       asp-route-sort="@ViewBag.CurrentState"
+       class="btn btn-primary">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+
+       @*asp-route-CustomerSurname="@CustomerSurname" asp-route-CustomerName="@CustomerName"
+    asp-route-CustomerSurname="@CustomerSurname" asp-route-CustomerName="@CustomerSurname"
+    asp-route-CustomerSurname="@WorkerPosotion" asp-route-CustomerName="@WorkerPosotion"*@
+
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"           
+           asp-route-Surname="@(Model.FilterViewModel.Surname)"           
+          asp-route-Name="@(Model.FilterViewModel.Name)"
+           asp-route-Position="@(Model.FilterViewModel.Position)"
+           asp-route-sort="@ViewBag.CurrentState"
+           class="btn btn-primary">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }

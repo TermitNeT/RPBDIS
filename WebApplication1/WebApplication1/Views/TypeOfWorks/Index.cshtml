@@ -1,0 +1,77 @@
+﻿@model IndexViewModel
+@using CourseWork.pages
+
+@{
+    ViewData["Title"] = "Виды работы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Виды работ</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить вид работы</a>
+</p>
+
+@using (Html.BeginForm("Index", "TypeOfWorks", FormMethod.Get))
+{
+    <fieldset>
+        Количество материалов: @Html.TextBox("NumOfMaterials", Model.NumOfMaterials)
+        <input type="submit" value="Фильтр" class="btn btn-primary" />
+    </fieldset>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название работы</th>
+            <th>Описание</th>
+            <th>Цена</th>
+            <th>Список материалов</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.TypeOfWorks.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.TypeOfWorks.ElementAt(i).WorkName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.TypeOfWorks.ElementAt(i).Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.TypeOfWorks.ElementAt(i).Price)
+                </td>
+                <td>@Model.List.ElementAt(i)
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.TypeOfWorks.ElementAt(i).TypeOfWorkId">Редактировать </a> |
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@Model.TypeOfWorks.ElementAt(i).TypeOfWorkId">Детали</a> |
+                    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@Model.TypeOfWorks.ElementAt(i).TypeOfWorkId">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"       
+       asp-route-NumOfMaterials="@(Model.FilterViewModel.NumOfMaterias)"
+       class="btn btn-primary">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-NumOfMaterials="@(Model.FilterViewModel.NumOfMaterias)"
+
+       class="btn btn-primary">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

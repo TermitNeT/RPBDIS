@@ -1,0 +1,119 @@
+﻿@model IndexViewModel
+@using CourseWork.pages
+
+@{
+    ViewData["Title"] = "Заказы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Заказы</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить заказ</a>
+</p>
+
+
+
+@using (Html.BeginForm("Index", "Orders", FormMethod.Get))
+{
+<fieldset>
+    Фамилия заказчика: @Html.TextBox("Surname", Model.Surname)
+    Имя заказчика: @Html.TextBox("Name", Model.Name)
+    <input type="submit" value="Найти" />
+</fieldset>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Фамилия Заказчика</th>
+            <th>Имя заказчика</th>
+            <th>Отчество заказчика</th>
+            <th>Тип работы</th>
+            <th>Бригада</th>
+            <th>Стоимость</th>
+            <th>Начало работ</th>
+            <th>Завершение работ</th>
+            <th>Статус завершения</th>
+            <th>Статус оплаты</th>
+            <th>
+            <th></th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeOfWork.WorkName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.TeamName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComplectionStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayStatus)
+                </td>
+                <td>
+
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.OrderId">Редактировать</a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.OrderId">Детали</a> |
+                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.OrderId">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+
+        
+          asp-route-Name="@(Model.FilterViewModel.Name)"
+           asp-route-Surname="@(Model.FilterViewModel.Surname)"
+       asp-route-sort="@ViewBag.CurrentState"       
+       class="btn btn-primary">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"  
+       
+       
+          asp-route-Name="@(Model.FilterViewModel.Name)"
+           asp-route-Surname="@(Model.FilterViewModel.Surname)"
+
+       asp-route-sort="@ViewBag.CurrentState"       
+       class="btn btn-primary">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

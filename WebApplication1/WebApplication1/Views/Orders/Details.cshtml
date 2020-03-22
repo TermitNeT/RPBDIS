@@ -1,0 +1,81 @@
+﻿@model CourseWork.Models.Order
+
+@{
+    ViewData["Title"] = "Детали заказа";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string name;
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Заказ</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Фамилия заказчика
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            Имя заказчика
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Отчестово заказчика
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.MiddleName)
+        </dd>
+        <dt class="col-sm-2">
+            Тип работы
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeOfWork.WorkName)
+        </dd>
+        <dt class="col-sm-2">
+            Бригада
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Team.TeamName)
+        </dd>
+        <dt class="col-sm-2">
+            Цена
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            Начало работ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            Завершение работ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinishDate)
+        </dd>
+        <dt class="col-sm-2">
+            Статус завершения работ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ComplectionStatus)
+        </dd>
+        <dt class="col-sm-2">
+            Статус оплаты заказа
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PayStatus)
+        </dd>    
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.OrderId">Редактировать</a> |
+    <a asp-action="Index" class="btn btn-primary">Назад</a>
+</div>

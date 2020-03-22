@@ -1,0 +1,63 @@
+﻿@model IndexViewModel
+@using CourseWork.pages
+
+@{
+    ViewData["Title"] = "Материалы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Материалы</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить материал</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название материала</th>
+            <th> Описание</th>
+            <th>Цена</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.materials)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaterialName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.MaterialId">Редактировать</a> |
+                    <a asp-action="Details"  class="btn btn-primary" asp-route-id="@item.MaterialId">Детали</a> |
+                    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@item.MaterialId">Удаление</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-primary">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-primary">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

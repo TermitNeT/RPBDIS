@@ -1,0 +1,37 @@
+﻿@model CourseWork.Models.Material
+
+@{
+    ViewData["Title"] = "Детали материала";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Материал</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Название материала
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaterialName)
+        </dd>
+        <dt class = "col-sm-2">
+            Описание
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            Цена
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.MaterialId">Редактировать</a> |
+    <a asp-action="Index" class="btn btn-primary">Назад</a>
+</div>

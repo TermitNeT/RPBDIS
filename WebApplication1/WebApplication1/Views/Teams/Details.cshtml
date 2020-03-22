@@ -1,0 +1,34 @@
+﻿@model CourseWork.pages.IndexViewModel
+
+@{
+    ViewData["Title"] = "Детали бригады";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Бригада</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Название бригады
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.team.TeamName)
+        </dd>
+    </dl>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Состав бригады
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.teamInfo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.team.TeamId" class="btn btn-primary">Редактировать</a> |
+    <a asp-action="Index" class="btn btn-primary">Назад</a>
+</div>

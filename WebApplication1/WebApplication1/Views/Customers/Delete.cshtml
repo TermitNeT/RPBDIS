@@ -1,0 +1,58 @@
+﻿@model CourseWork.Models.Customer
+
+@{
+    ViewData["Title"] = "Удаление заказчика";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Удаление</h1>
+
+<h3>Вы уверены, что хотите удалить заказчика?</h3>
+<div>
+    <h4>Заказчик</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Фамилия
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            Имя
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Отчество
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+        <dt class="col-sm-2">
+            Адресс
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+        <dt class="col-sm-2">
+            Телефон
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            Паспортные данные
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Passport)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CustomerId" />
+        <input type="submit" value="Удалить" class="btn btn-primary" /> |
+        <a asp-action="Index" class="btn btn-primary" >Назад</a>
+    </form>
+</div>

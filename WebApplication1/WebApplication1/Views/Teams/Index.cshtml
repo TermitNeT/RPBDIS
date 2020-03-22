@@ -1,0 +1,70 @@
+﻿@model IndexViewModel
+@using CourseWork.pages
+
+@{
+    ViewData["Title"] = "Бригады";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Бригады</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить бригаду</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название бригады</th>
+            <th>Количество выполненных заказов</th>
+            <th>Состав работников</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (@Model.List != null)
+        {
+            @for (int i = 0; i < Model.teams.Count(); i++)
+            {
+                @if (@Model.List.ElementAt(i).Length != 0)
+                {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.teams.ElementAt(i).TeamName)
+            </td>
+            <td>
+                @Model.ListNum.ElementAt(i)
+            </td>
+            <td>
+                @Model.List.ElementAt(i)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.teams.ElementAt(i).TeamId">Редактировать</a> |
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@Model.teams.ElementAt(i).TeamId">Детали</a> |
+                <a asp-action="Delete" class="btn btn-primary" asp-route-id="@Model.teams.ElementAt(i).TeamId">Удалить</a>
+            </td>
+        </tr>
+                }
+            }
+        }
+        </tbody>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+      class="btn btn-primary">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+      class="btn btn-primary">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
